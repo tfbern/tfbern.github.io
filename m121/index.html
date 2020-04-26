@@ -9,7 +9,8 @@
 </head>
 <body onload="init()">
   <div class="mdc-layout-grid">
-    <h2>Switch Arduino Pins</h2>
+    <p id="help"></p>
+    <h2>Switch Arduino Digital Outputs</h2>
     <select id="pin">
       <option value=all>all</option>
     </select>&nbsp;
@@ -36,6 +37,9 @@
 </body>
 
 <script>
+// const url = 'ws://localhost:81'
+const url = 'ws://websocksrv.herokuapp.com'
+
 function init(){
   var x = document.getElementById("pin");
   for (i=0; i<=13; i++) {
@@ -44,6 +48,11 @@ function init(){
     option.value = i;
     x.add(option);
   }
+  document.getElementById("help").innerHTML = 
+  'This page will open a WebSocket connection to ' + url + '. </br>' +
+  'Through the socket we will receive JSON objects with status information. This page displays the received status information with charts.</br>' +
+  'Also, we can send commands to Arduino through the socket, e.g. switch an output. </br>' +
+  'In Chrome press F12 for further details.'
 }
 function sendCommand(){
   var pin = document.getElementById('pin').value
@@ -104,10 +113,9 @@ chart3.options.scales.yAxes[0].ticks.min = 0
 chart3.options.scales.yAxes[0].ticks.max = 1
 chart3.options.scales.yAxes[0].ticks.stepSize = 1
 
-const url = 'ws://localhost:81'
 const ws = new WebSocket(url);
 ws.onopen = function() {
-    console.log('ws connected to url');
+    console.log('WebSocket connection to ' + url + ' established');
     console.log('type ws.send("13=1") to switch the build-in LED on');
 };
 
