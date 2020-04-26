@@ -1,4 +1,4 @@
-# GitHub Pages of tfbern.github.io
+GitHub Pages of tfbern.github.io
 
 ## Hosting GUI for Module 121
 [Start GUI here](m121/index.html)
